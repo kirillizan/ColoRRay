@@ -1,0 +1,20 @@
+.vertical {
+  position: absolute;
+  right: 0; bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -100%);
+}
+
+p {
+  font-family: 'Berlin', sans-serif;
+  color: #fff;
+  text-align: center;
+}
+
+#container {
+  margin: auto;
+  position: absolute;
+  top: 0; bottom: 0; /* vertical center */
+  left: 0; right: 0; /* horizontal center */
+  overflow: hidden;
+}
