@@ -1,5 +1,5 @@
   function start() {
-    showMenu();
+    //showMenu();
     return;
   }
 
@@ -11,26 +11,27 @@
           height: 480
         },
         aspectRatio = desired.width / desired.height,
-        viewport = {
+        current = {
           width: win.width() ,
           height: win.height()
         },
-        sizeToWidth = ((viewport.width / viewport.height) < aspectRatio)
+        sizeToWidth = ((current.width / current.height) < aspectRatio)
     var box = {
-      width: Math.floor(sizeToWidth? viewport.width : (viewport.height/desired.height) * desired.width),
-      height: Math.floor(sizeToWidth? (viewport.width/desired.width) * desired.height : viewport.height)
+      width: Math.floor(sizeToWidth? current.width : (current.height/desired.height) * desired.width),
+      height: Math.floor(sizeToWidth? (current.width/desired.width) * desired.height : current.height)
     }
 
-    $('#container').css({'width': box.width + 'px', 'height': box.height + 'px'});
+    //$('#container').css({'width': box.width + 'px', 'height': box.height + 'px'});
 
     var containerSize = box.width;
-
 
     $('#menu p').css('font-size', Math.round(containerSize * .1) + 'px')
     $('#menu p').css('padding', Math.round(containerSize * .05) + 'px 0')
     $('#menu p').css('line-height', Math.round(containerSize * .1) + 'px')
   }
 
+
+/*
 
   function addEventListeners() {
     document.addEventListener("backbutton", backButtonPressed, false);
@@ -78,3 +79,4 @@
     $('.screen').hide().removeClass('show');
     $('#about').show();
   }
+  */

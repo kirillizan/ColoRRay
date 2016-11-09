@@ -30,3 +30,7 @@
   left: 0; right: 0; /* horizontal center */
   overflow: hidden;
 }
+
+.show {
+  opacity: 1;
+}
