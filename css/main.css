@@ -1,8 +1,10 @@
+
+
 .vertical {
   position: absolute;
   right: 0; bottom: 0;
   left: 50%;
-  transform: translate(-50%, -100%);
+  transform: translate(-50%, -50%);
 }
 
 .screen {
@@ -13,7 +15,7 @@
 }
 
 #menu p {
-  font-family: 'Berlin', sans-serif;
+  font-family: 'Indie+Flower', cursive;
   color: #fff;
   text-align: center;
   font-size: 60px; 
