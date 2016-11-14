@@ -1,5 +1,4 @@
   function start() {
-    //showMenu();
     return;
   }
 
@@ -25,20 +24,16 @@
 
     var containerSize = box.width;
 
-    $('#menu p').css('font-size', Math.round(containerSize * .1) + 'px')
-    $('#menu p').css('padding', Math.round(containerSize * .05) + 'px 0')
-    $('#menu p').css('line-height', Math.round(containerSize * .1) + 'px')
+    $('p').css('font-size', Math.round(containerSize * .05) + 'px');
+    $('p').css('padding', Math.round(containerSize * .05) + 'px 0');
+    $('p').css('line-height', Math.round(containerSize * .1) + 'px');
+    $('.menu p').css('font-size', Math.round(containerSize * .1) + 'px');
+
+    addEventListeners();
   }
 
-
-/*
-
   function addEventListeners() {
-    document.addEventListener("backbutton", backButtonPressed, false);
-    if (window.WinJS)
-      WinJS.Application.onbackclick = backButtonPressed;
-    $(document).on('touchend mouseup', click);
-    $(document).on('touchstart mousedown', '#grid td', tapTile);
+    $(document).on('mouseup', click);
     $(document).on('contextmenu', function(e) {
       e.preventDefault();
       e.stopPropagation();
@@ -52,7 +47,7 @@
     var $el = $(evt.target).closest('*[data-action]'),
       action = $(evt.target).closest('*[data-action]').attr('data-action'),
       value = $el.attr('data-value');
-    // allow regular hyperlinks to work
+    // allow hyperlinks to work
     var isLink = ($el && $el.length && $el[0].nodeName == 'A') ? true : false;
     if (action && !isLink) {
       doAction(action, value);
@@ -62,6 +57,9 @@
 
   function doAction(action, value) {
     switch (action) {
+      case 'play':
+        showPlay();
+        break;
       case 'about':
         showAbout();
         break;
@@ -69,14 +67,16 @@
   }
 
   function showMenu() {
-    onHomeScreen = true;
     $('.screen').hide().removeClass('show');
     $('#menu').show();
   }
 
   function showAbout() {
-    onHomeScreen = false;
     $('.screen').hide().removeClass('show');
     $('#about').show();
+  }  
+
+  function showPlay() {
+    $('.screen').hide().removeClass('show');
+    $('#play').show();
   }
-  */

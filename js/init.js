@@ -3,7 +3,8 @@ $(document).ready(function() {
 });
 
 function init() {
-	$(window).on('resize', resize());
+	resize();
+	showMenu();
 }
 
 $(window).on('resize', function() {
