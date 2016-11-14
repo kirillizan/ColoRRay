@@ -57,6 +57,9 @@
 
   function doAction(action, value) {
     switch (action) {
+      case 'showmenu':
+        showMenu();
+        break;
       case 'play':
         showPlay();
         break;
