@@ -23,7 +23,7 @@
     //$('#container').css({'width': box.width + 'px', 'height': box.height + 'px'});
 
     var containerSize = box.width;
-
+    $('h3').css('font-size', Math.round(containerSize * .07) + 'px');
     $('p').css('font-size', Math.round(containerSize * .05) + 'px');
     $('p').css('padding', Math.round(containerSize * .05) + 'px 0');
     $('p').css('line-height', Math.round(containerSize * .1) + 'px');
