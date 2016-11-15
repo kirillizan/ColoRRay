@@ -43,6 +43,9 @@
   }
 
   function click(evt) {
+    document.addEventListener("backbutton", showMenu, false);
+    if (window.WinJS) WinJS.Application.onbackclick = showMenu;
+
     if (window.Utils && Utils.isDoubleTapBug(evt)) return false;
     var $el = $(evt.target).closest('*[data-action]'),
       action = $(evt.target).closest('*[data-action]').attr('data-action'),
