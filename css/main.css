@@ -24,7 +24,7 @@ body {
 }
 
 #about {
-  transform: translate(0, 5%);
+  //transform: translate(0, -5%);
 }
 
 .screen {
@@ -47,7 +47,6 @@ p {
   line-height: 48px; 
   margin: 0;
 }
-
 
 .show {
   opacity: 1;
