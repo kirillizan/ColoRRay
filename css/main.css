@@ -24,7 +24,7 @@ body {
 }
 
 #about {
-  //transform: translate(0, -5%);
+  transform: translate(0, -5%);
 }
 
 .screen {
