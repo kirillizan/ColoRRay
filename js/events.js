@@ -9,9 +9,8 @@ function addEventListeners() {
 }
 
 function click(evt) {
-    if (window.Utils && Utils.isDoubleTapBug(evt)) return false;
-    action = $(evt.target).closest('*[data-action]').attr('data-action'),
-
+    action = $(evt.target).closest('*[data-action]').attr('data-action');
+    
     switch (action) {
         case 'showmenu':
             showMenu();
@@ -23,20 +22,6 @@ function click(evt) {
             showAbout();
             break;
     }    
-}
-
-function doAction(action, value) {
-    switch (action) {
-        case 'showmenu':
-            showMenu();
-            break;
-        case 'play':
-            showPlay();
-            break;
-        case 'about':
-            showAbout();
-            break;
-    }
 }
 
 function showMenu() {
