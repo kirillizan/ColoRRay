@@ -1,12 +1,13 @@
 $(document).ready(function() {
-	init();
+    init();
 });
 
 function init() {
-	resize();
-	showMenu();
+    resize();
+    addEventListeners();
+    showMenu();
 }
 
 $(window).on('resize', function() {
-	resize();
+    resize();
 });
