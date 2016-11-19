@@ -23,6 +23,10 @@ body {
   transform: translate(0, -15%);
 }
 
+#rating {
+  transform: translate(0, 10%);
+}
+
 #about {
   transform: translate(0, -5%);
 }
@@ -48,6 +52,19 @@ p {
   margin: 0;
 }
 
-.show {
-  opacity: 1;
+.table {
+  font-size: 36px;
+  line-height: 80px; 
+  color: black;
+}
+
+.left {
+  float: left;
+  width: 50%;
+}
+
+.right {
+  text-align: right;
+  float: right;
+  width: 50%;
 }

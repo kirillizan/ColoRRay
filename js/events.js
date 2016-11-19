@@ -18,6 +18,9 @@ function click(evt) {
         case 'play':
             showPlay();
             break;
+        case 'rating':
+            showRating();
+            break;
         case 'about':
             showAbout();
             break;
@@ -33,6 +36,12 @@ function showAbout() {
     $('.screen').hide().removeClass('show');
     $('#about').show();
 }
+
+function showRating() {
+    $('.screen').hide().removeClass('show');
+    $('#rating').show();
+}
+
 
 function showPlay() {
     $('.screen').hide().removeClass('show');
