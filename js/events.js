@@ -23,7 +23,10 @@ function click(evt) {
             break;
         case 'about':
             showAbout();
-            break;
+	    break;
+	case 'arcade':
+	    showGrid();
+	    break;
     }    
 }
 
@@ -47,3 +50,9 @@ function showPlay() {
     $('.screen').hide().removeClass('show');
     $('#play').show();
 }
+
+function showGrid() {
+    $('.screen').hide().removeClass('show');
+    $('#grid').show();
+}
+

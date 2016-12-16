@@ -38,6 +38,12 @@ body {
   right: 0; bottom: 0;
 }
 
+canvas { 
+	border:0;
+	display:block;
+	margin:0 auto;
+}
+
 h3 {
   text-align: center;
   font-size: 30px;
