@@ -1,6 +1,6 @@
 // Hex math defined here: http://blog.ruslans.com/2011/02/hexagonal-grid-math.html
-    var hexbg = new Image();
-    hexbg.src = "./img/hex.png";
+var hexbg = new Image();
+hexbg.src = "./img/hex.png";
 
 function HexagonGrid(canvasId, radius) {
     this.radius = radius;
@@ -44,6 +44,7 @@ HexagonGrid.prototype.drawHexGrid = function (rows, cols, originX, originY, isDe
             }
 
             this.drawHex(currentHexX, currentHexY, 0, 0/*debugText*/);
+
         }
         offsetColumn = !offsetColumn;
     }
@@ -80,6 +81,9 @@ HexagonGrid.prototype.drawHex = function(x0, y0, rotateAngle, debugText) {
         this.context.restore();  
     }
     else {
+        this.context.fillStyle = "#bbb";
+        this.context.fill();
+
         this.context.drawImage(hexbg, x0,y0, (this.width), (this.height));
     }
  
