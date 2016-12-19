@@ -1,6 +1,6 @@
 // Hex math defined here: http://blog.ruslans.com/2011/02/hexagonal-grid-math.html
-var img = new Image();
-img.src = "./img/hex.png";
+    var hexbg = new Image();
+    hexbg.src = "./img/hex.png";
 
 function HexagonGrid(canvasId, radius) {
     this.radius = radius;
@@ -76,11 +76,11 @@ HexagonGrid.prototype.drawHex = function(x0, y0, rotateAngle, debugText) {
         this.context.translate(x0+this.width/2, y0+this.height/2);
         this.context.rotate(this.angle*Math.PI/180); 
         this.context.translate(-(x0+this.width/2), -(y0+this.height/2));
-        this.context.drawImage(img, x0,y0, (this.width), (this.height));
+        this.context.drawImage(hexbg, x0,y0, (this.width), (this.height));
         this.context.restore();  
     }
     else {
-        this.context.drawImage(img, x0,y0, (this.width), (this.height));
+        this.context.drawImage(hexbg, x0,y0, (this.width), (this.height));
     }
  
     this.context.closePath();
