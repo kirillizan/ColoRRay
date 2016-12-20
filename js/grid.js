@@ -77,14 +77,14 @@ HexagonGrid.prototype.drawHex = function(x0, y0, rotateAngle, debugText) {
         this.context.translate(x0+this.width/2, y0+this.height/2);
         this.context.rotate(this.angle*Math.PI/180); 
         this.context.translate(-(x0+this.width/2), -(y0+this.height/2));
-        this.context.drawImage(hexbg, x0,y0, (this.width), (this.height));
-        this.context.restore();  
+        this.context.drawImage(hexbg, x0, y0, (this.width), (this.height));
+        //this.context.moveTo(x0+this.width/2, y0+this.height/2);
+        //this.context.lineTo(x0+this.width*2, y0+this.height);
+        this.context.restore();
     }
     else {
         this.context.fillStyle = "#bbb";
         this.context.fill();
-
-        this.context.drawImage(hexbg, x0,y0, (this.width), (this.height));
     }
  
     this.context.closePath();
