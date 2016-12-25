@@ -224,10 +224,11 @@ HexagonGrid.prototype.clickEvent = function (e) {
     } 
 };
 
-
+/*
 HexagonGrid.prototype.setTileImage = function(element, imgFilename) {
         if (typeof element !== 'object') {
             throw new Error('element is not an object');
         }
         element.style.backgroundImage = 'url(' + imgFilename + ')';
 };
+*/
