@@ -52,6 +52,7 @@ function showPlay() {
 }
 
 function showGrid() {
+    $('body').css('background-color', "#222");
     $('.screen').hide().removeClass('show');
     $('#grid').show();
 }
