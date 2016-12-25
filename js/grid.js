@@ -5,6 +5,9 @@ hexImg.src = "./img/hex.png";
 var laserImg = new Image();
 laserImg.src = "./img/whitelaser.png";
 
+var lineImg = new Image();
+lineImg.src = "./img/whitehex.png";
+
 var globalRows, globalCols;
 
 function HexagonGrid(canvasId, radius) {
@@ -79,16 +82,26 @@ HexagonGrid.prototype.drawHex = function(x0, y0, rotateHex, debugText) {
     if (rotateHex) {  
     	this.coord = x0 + "." + y0;
     	if (this.coord in angles) angles[this.coord] += 60;
-    	else angles[this.coord] = 60;
+    	else angles[this.coord] = 0;
 
         this.context.save(); 
         this.context.translate(x0+this.width/2, y0+this.height/2);
         this.context.rotate(angles[this.coord]*Math.PI/180); 
         this.context.translate(-(x0+this.width/2), -(y0+this.height/2));
         this.context.drawImage(laserImg, x0, y0, (this.width), (this.height));
-        //this.context.moveTo(x0+this.width/2, y0+this.height/2);
-        //this.context.lineTo(x0+this.width*2, y0+this.height);
+
+       	// draw (or redraw rotated) laser into the clicked tile
+        this.context.drawImage(lineImg, x0+this.width*(3/4), y0-this.height/2, (this.width), (this.height));
         this.context.restore();
+
+        if (angles[this.coord] > 0) { /* restore default background */
+	        this.context.save(); 
+	        this.context.translate(x0+this.width/2, y0+this.height/2);
+	        this.context.rotate((angles[this.coord]-60)*Math.PI/180); 
+	        this.context.translate(-(x0+this.width/2), -(y0+this.height/2));
+	        this.context.drawImage(hexImg, x0+this.width*(3/4), y0-this.height/2, (this.width), (this.height));
+	        this.context.restore();
+	    }
     }
     else {
         this.context.drawImage(hexImg, x0, y0, (this.width), (this.height));
