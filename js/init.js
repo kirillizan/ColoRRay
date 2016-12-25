@@ -11,8 +11,8 @@ function init() {
     displayRatings();
 
     //draw grid
-    var hexagonGrid = new HexagonGrid("HexCanvas", 50);
-    hexagonGrid.drawHexGrid(5, 10, 50, 50, true);
+    var hexagonGrid = new HexagonGrid("HexCanvas", 40);
+    hexagonGrid.drawHexGrid(7, 10, 100, 100, true);
 
 }
 

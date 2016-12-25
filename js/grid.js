@@ -1,6 +1,11 @@
 // Hex math defined here: http://blog.ruslans.com/2011/02/hexagonal-grid-math.html
-var hexbg = new Image();
-hexbg.src = "./img/hex.png";
+var hexImg = new Image();
+hexImg.src = "./img/hex.png";
+
+var laserImg = new Image();
+laserImg.src = "./img/whitelaser.png";
+
+var globalRows, globalCols;
 
 function HexagonGrid(canvasId, radius) {
     this.radius = radius;
@@ -19,6 +24,7 @@ function HexagonGrid(canvasId, radius) {
 };
 
 HexagonGrid.prototype.drawHexGrid = function (rows, cols, originX, originY, isDebug) {
+	globalRows = rows; globalCols = cols;
     this.canvasOriginX = originX;
     this.canvasOriginY = originY;
     
@@ -43,7 +49,7 @@ HexagonGrid.prototype.drawHexGrid = function (rows, cols, originX, originY, isDe
                 debugText = col + "," + row;
             }
 
-            this.drawHex(currentHexX, currentHexY, 0, 0/*debugText*/);
+            this.drawHex(currentHexX, currentHexY, 0, 0);
 
         }
         offsetColumn = !offsetColumn;
@@ -51,15 +57,16 @@ HexagonGrid.prototype.drawHexGrid = function (rows, cols, originX, originY, isDe
 };
 
 /*
-HexagonGrid.prototype.drawHexAtColRow = function(column, row, rotateAngle) {
+HexagonGrid.prototype.drawHexAtColRow = function(column, row, rotateHex) {
     var drawy = column % 2 == 0 ? (row * this.height) + this.canvasOriginY : (row * this.height) + this.canvasOriginY + (this.height / 2);
     var drawx = (column * this.side) + this.canvasOriginX;
 
-    this.drawHex(drawx, drawy, rotateAngle, "");
+    this.drawHex(drawx, drawy, rotateHex, "");
 };
 */
 
-HexagonGrid.prototype.drawHex = function(x0, y0, rotateAngle, debugText) {
+angles = [];
+HexagonGrid.prototype.drawHex = function(x0, y0, rotateHex, debugText) {
     this.context.strokeStyle = "#000";
     this.context.beginPath();
     this.context.moveTo(x0 + this.width - this.side, y0);
@@ -69,22 +76,22 @@ HexagonGrid.prototype.drawHex = function(x0, y0, rotateAngle, debugText) {
     this.context.lineTo(x0 + this.width - this.side, y0 + this.height);
     this.context.lineTo(x0, y0 + (this.height / 2));
 
-    if (rotateAngle) {   
-        if(!this.angle) this.angle = 60;
-         else this.angle += 60;   
+    if (rotateHex) {  
+    	this.coord = x0 + "." + y0;
+    	if (this.coord in angles) angles[this.coord] += 60;
+    	else angles[this.coord] = 60;
 
         this.context.save(); 
         this.context.translate(x0+this.width/2, y0+this.height/2);
-        this.context.rotate(this.angle*Math.PI/180); 
+        this.context.rotate(angles[this.coord]*Math.PI/180); 
         this.context.translate(-(x0+this.width/2), -(y0+this.height/2));
-        this.context.drawImage(hexbg, x0, y0, (this.width), (this.height));
+        this.context.drawImage(laserImg, x0, y0, (this.width), (this.height));
         //this.context.moveTo(x0+this.width/2, y0+this.height/2);
         //this.context.lineTo(x0+this.width*2, y0+this.height);
         this.context.restore();
     }
     else {
-        this.context.fillStyle = "#bbb";
-        this.context.fill();
+        this.context.drawImage(hexImg, x0, y0, (this.width), (this.height));
     }
  
     this.context.closePath();
@@ -131,7 +138,6 @@ HexagonGrid.prototype.getSelectedTile = function(mouseX, mouseY) {
 
     //Test if on left side of frame            
     if (mouseX > (column * this.side) && mouseX < (column * this.side) + this.width - this.side) {
-
 
         //Now test which of the two triangles we are in 
         //Top left triangle points
@@ -209,12 +215,11 @@ HexagonGrid.prototype.clickEvent = function (e) {
     var localY = mouseY - this.canvasOriginY;
 
     var tile = this.getSelectedTile(localX, localY);
-    if (tile.column >= 0 && tile.row >= 0) {
-        var drawy = tile.column % 2 == 0 ? (tile.row * this.height) + this.canvasOriginY + 6 : (tile.row * this.height) + this.canvasOriginY + 6 + (this.height / 2);
+    if (tile.column >= 0 && tile.row >= 0 && tile.column < globalCols && tile.row < globalRows) {
+        var drawy = tile.column % 2 == 0 ? (tile.row * this.height) + this.canvasOriginY : (tile.row * this.height) + this.canvasOriginY + (this.height / 2);
         var drawx = (tile.column * this.side) + this.canvasOriginX;
 
-        this.drawHex(drawx, drawy - 6, 1, "");
-        
+        this.drawHex(drawx, drawy, 1, 0);       
 
     } 
 };
