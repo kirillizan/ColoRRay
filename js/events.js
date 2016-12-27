@@ -23,10 +23,10 @@ function click(evt) {
             break;
         case 'about':
             showAbout();
-	    break;
-	case 'arcade':
-	    showGrid();
-	    break;
+	    	break;
+		case 'arcade':
+	    	showGrid();
+	    	break;
     }    
 }
 
