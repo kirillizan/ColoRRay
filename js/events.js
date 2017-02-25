@@ -52,8 +52,16 @@ function showPlay() {
 }
 
 function showGrid() {
-    $('body').css('background-color', "#222");
+
     $('.screen').hide().removeClass('show');
-    $('#grid').show();
+    $('#loader').show();
+    
+    setTimeout(function() {
+        $('.screen').hide().removeClass('show');
+        $('#grid').show();
+    }, 500);
+
 }
+
+
 

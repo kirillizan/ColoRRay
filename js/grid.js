@@ -1,4 +1,3 @@
-// Hex math defined here: http://blog.ruslans.com/2011/02/hexagonal-grid-math.html
 var hexImg = new Image();
 hexImg.src = "./img/hex.png";
 
@@ -93,6 +92,7 @@ HexagonGrid.prototype.drawHex = function(x0, y0, rotateHex, texture, colrow) {
 
         rotateHex == 1 ? angle = angles[this.coord] 
                        : angle = rotateHex;
+        
         console.log(angle);
         
         this.context.save(); 
@@ -103,7 +103,7 @@ HexagonGrid.prototype.drawHex = function(x0, y0, rotateHex, texture, colrow) {
 
         
         var target = { col: colrow.col + 1, 
-                       row: colrow.col % 2 ? colrow.row: colrow.row - 1 };
+                       row: colrow.col % 2 ? colrow.row : colrow.row - 1 };
         
         if (target.col < globalCols && target.row < globalRows 
                          && target.col >= 0 && target.row >= 0)
