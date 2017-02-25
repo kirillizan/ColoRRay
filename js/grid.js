@@ -9,6 +9,7 @@ var lineImg = new Image();
 lineImg.src = "./img/whitehex.png";
 
 var globalRows, globalCols;
+var angles = [];
 
 function HexagonGrid(canvasId, radius) {
     this.radius = radius;
@@ -27,7 +28,7 @@ function HexagonGrid(canvasId, radius) {
 };
 
 HexagonGrid.prototype.drawHexGrid = function (rows, cols, originX, originY, isDebug) {
-	globalRows = rows; globalCols = cols;
+    globalRows = rows; globalCols = cols;
     this.canvasOriginX = originX;
     this.canvasOriginY = originY;
     
@@ -52,24 +53,24 @@ HexagonGrid.prototype.drawHexGrid = function (rows, cols, originX, originY, isDe
                 debugText = col + "," + row;
             }
 
-            this.drawHex(currentHexX, currentHexY, 0, 0);
+            this.drawHex(currentHexX, currentHexY, 0, 0, 0);
 
         }
         offsetColumn = !offsetColumn;
     }
 };
 
-/*
-HexagonGrid.prototype.drawHexAtColRow = function(column, row, rotateHex) {
+
+HexagonGrid.prototype.drawHexAtColRow = function(column, row, rotateHex, texture) {
     var drawy = column % 2 == 0 ? (row * this.height) + this.canvasOriginY : (row * this.height) + this.canvasOriginY + (this.height / 2);
     var drawx = (column * this.side) + this.canvasOriginX;
 
-    this.drawHex(drawx, drawy, rotateHex, "");
+    this.drawHex(drawx, drawy, rotateHex, texture, {col: column, row: row});
 };
-*/
 
-angles = [];
-HexagonGrid.prototype.drawHex = function(x0, y0, rotateHex, debugText) {
+
+
+HexagonGrid.prototype.drawHex = function(x0, y0, rotateHex, texture, colrow) {
     this.context.strokeStyle = "#000";
     this.context.beginPath();
     this.context.moveTo(x0 + this.width - this.side, y0);
@@ -79,29 +80,52 @@ HexagonGrid.prototype.drawHex = function(x0, y0, rotateHex, debugText) {
     this.context.lineTo(x0 + this.width - this.side, y0 + this.height);
     this.context.lineTo(x0, y0 + (this.height / 2));
 
-    if (rotateHex) {  
-    	this.coord = x0 + "." + y0;
-    	if (this.coord in angles) angles[this.coord] += 60;
-    	else angles[this.coord] = 0;
+    if (texture) {  
+        
+        this.coord = x0 + "." + y0;
 
+        if (rotateHex == 0 || rotateHex == 1) {
+            if (this.coord in angles) 
+                angles[this.coord] += 60;
+            else 
+                angles[this.coord] = 0;
+        }
+
+        rotateHex == 1 ? angle = angles[this.coord] 
+                       : angle = rotateHex;
+        console.log(angle);
+        
         this.context.save(); 
         this.context.translate(x0+this.width/2, y0+this.height/2);
-        this.context.rotate(angles[this.coord]*Math.PI/180); 
+        this.context.rotate(angle*Math.PI/180); 
         this.context.translate(-(x0+this.width/2), -(y0+this.height/2));
-        this.context.drawImage(laserImg, x0, y0, (this.width), (this.height));
+        this.context.drawImage(texture, x0, y0, (this.width), (this.height));
 
-       	// draw (or redraw rotated) laser into the clicked tile
-        this.context.drawImage(lineImg, x0+this.width*(3/4), y0-this.height/2, (this.width), (this.height));
+        
+        var target = { col: colrow.col + 1, 
+                       row: colrow.col % 2 ? colrow.row: colrow.row - 1 };
+        
+        if (target.col < globalCols && target.row < globalRows 
+                         && target.col >= 0 && target.row >= 0)
+            this.drawHexAtColRow(target.col, target.row, angle, lineImg);
+
         this.context.restore();
 
-        if (angles[this.coord] > 0) { /* restore default background */
-	        this.context.save(); 
-	        this.context.translate(x0+this.width/2, y0+this.height/2);
-	        this.context.rotate((angles[this.coord]-60)*Math.PI/180); 
-	        this.context.translate(-(x0+this.width/2), -(y0+this.height/2));
-	        this.context.drawImage(hexImg, x0+this.width*(3/4), y0-this.height/2, (this.width), (this.height));
-	        this.context.restore();
-	    }
+        // draw (or redraw rotated) laser into the clicked tilу        
+        //this.context.drawImage(lineImg, x0+this.width*(3/4), y0-this.height/2, (this.width), (this.height));
+
+
+        /* restore default background */
+        /*
+        if (angles[this.coord] > 0) { 
+            this.context.save(); 
+            this.context.translate(x0+this.width/2, y0+this.height/2);
+            this.context.rotate((angles[this.coord]-60)*Math.PI/180); 
+            this.context.translate(-(x0+this.width/2), -(y0+this.height/2));
+            this.context.drawImage(hexImg, x0+this.width*(3/4), y0-this.height/2, (this.width), (this.height));
+            this.context.restore();
+        }
+        */
     }
     else {
         this.context.drawImage(hexImg, x0, y0, (this.width), (this.height));
@@ -110,12 +134,10 @@ HexagonGrid.prototype.drawHex = function(x0, y0, rotateHex, debugText) {
     this.context.closePath();
     this.context.stroke();
 
-    if (debugText) {
+    if (colrow) {
         this.context.font = "8px";
         this.context.fillStyle = "#000";
-        this.context.fillText(debugText, x0 + (this.width / 2) - (this.width/4), y0 + (this.height - 5));
-
-
+        this.context.fillText(colrow.col + "; " + colrow.row, x0 + (this.width / 2) - (this.width/4), y0 + (this.height - 5));
     }
 };
 
@@ -232,7 +254,8 @@ HexagonGrid.prototype.clickEvent = function (e) {
         var drawy = tile.column % 2 == 0 ? (tile.row * this.height) + this.canvasOriginY : (tile.row * this.height) + this.canvasOriginY + (this.height / 2);
         var drawx = (tile.column * this.side) + this.canvasOriginX;
 
-        this.drawHex(drawx, drawy, 1, 0);       
+        //this.drawHex(drawx, drawy, 1, laserImg, 0);
+        this.drawHexAtColRow(tile.column, tile.row, 1, laserImg, 0);       
 
     } 
 };
