@@ -49,7 +49,7 @@ HexagonGrid.prototype.drawHexGrid = function (rows, cols, originX, originY, isDe
             }
 
             if (isDebug) {
-                debugText = col + "," + row;
+                debugText = col + ":" + row;
             }
 
             this.drawHex(currentHexX, currentHexY, 0, 0, 0);
@@ -61,9 +61,8 @@ HexagonGrid.prototype.drawHexGrid = function (rows, cols, originX, originY, isDe
 
 
 HexagonGrid.prototype.drawHexAtColRow = function(column, row, rotateHex, texture) {
-    var drawy = column % 2 == 0 ? (row * this.height) + this.canvasOriginY : (row * this.height) + this.canvasOriginY + (this.height / 2);
     var drawx = (column * this.side) + this.canvasOriginX;
-
+    var drawy = column % 2 == 0 ? (row * this.height) + this.canvasOriginY : (row * this.height) + this.canvasOriginY + (this.height / 2);
     this.drawHex(drawx, drawy, rotateHex, texture, {col: column, row: row});
 };
 
@@ -107,10 +106,11 @@ HexagonGrid.prototype.drawHex = function(x0, y0, rotateHex, texture, colrow) {
         
         if (target.col < globalCols && target.row < globalRows 
                          && target.col >= 0 && target.row >= 0)
-            this.drawHexAtColRow(target.col, target.row, angle, lineImg);
+            this.drawHexAtColRow(target.col, target.row, 0, lineImg);
 
+        
         this.context.restore();
-
+        console.log(this.getSelectedTile(x0-this.canvasOriginX,y0 - this.canvasOriginY));
         // draw (or redraw rotated) laser into the clicked tilу        
         //this.context.drawImage(lineImg, x0+this.width*(3/4), y0-this.height/2, (this.width), (this.height));
 
@@ -137,7 +137,7 @@ HexagonGrid.prototype.drawHex = function(x0, y0, rotateHex, texture, colrow) {
     if (colrow) {
         this.context.font = "8px";
         this.context.fillStyle = "#000";
-        this.context.fillText(colrow.col + "; " + colrow.row, x0 + (this.width / 2) - (this.width/4), y0 + (this.height - 5));
+        this.context.fillText(colrow.col + " : " + colrow.row, x0 + (this.width / 2) - (this.width/4), y0 + (this.height - 5));
     }
 };
 
@@ -223,7 +223,7 @@ HexagonGrid.prototype.getSelectedTile = function(mouseX, mouseY) {
         }
     }
 
-    return  { row: row, column: column };
+    return  { column: column, row: row};
 };
 
 

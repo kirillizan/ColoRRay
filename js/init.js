@@ -13,7 +13,7 @@ function init() {
     //draw grid
     setTimeout(function() {
         var hexagonGrid = new HexagonGrid("HexCanvas", 40);
-        hexagonGrid.drawHexGrid(7, 10, 10, 10, true);
+        hexagonGrid.drawHexGrid(7, 10, 0, 0, true);
     }, 500);
 }
 
